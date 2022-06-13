@@ -3,8 +3,10 @@ const todoControl = document.querySelector(".todo-control");
 const headerInput = document.querySelector(".header-input");
 const todoList = document.querySelector(".todo-list");
 const todoCompleted = document.querySelector(".todo-completed");
+let toDoContainer = document.querySelector(".todo-container");
 
-const toDoData = [];
+let toDoData = [];
+// toDoData = JSON.parse(localStorage.getItem("toDoData"));
 
 const render = function () {
   todoList.innerHTML = "";
@@ -21,6 +23,7 @@ const render = function () {
       `<button class="todo-remove"></button>` +
       ` <button class="todo-complete"></button>` +
       ` </div>`;
+    localStorage.setItem("toDoData", JSON.stringify(toDoData));
 
     if (item.text != "") {
       if (item.completed) {
@@ -33,15 +36,16 @@ const render = function () {
     li.querySelector(".todo-complete").addEventListener("click", function () {
       item.completed = !item.completed;
       render();
+
+      localStorage.setItem("toDoData", JSON.stringify(toDoData));
     });
 
     li.querySelector(".todo-remove").addEventListener("click", function () {
       li.remove();
+
+      localStorage.setItem("toDoData", JSON.stringify(toDoData));
     });
   });
-
-  localStorage.toDoData = toDoData;
-  localStorage.getItem("toDoData");
 };
 
 todoControl.addEventListener("submit", function (event) {
@@ -54,6 +58,5 @@ todoControl.addEventListener("submit", function (event) {
 
   toDoData.push(newToDo);
   headerInput.value = "";
-
   render();
 });
