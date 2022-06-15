@@ -6,7 +6,12 @@ const todoCompleted = document.querySelector(".todo-completed");
 let toDoContainer = document.querySelector(".todo-container");
 
 let toDoData = [];
-toDoData = JSON.parse(localStorage.getItem("toDoData"));
+
+if (localStorage.getItem("toDoData")) {
+  toDoData = JSON.parse(localStorage.getItem("toDoData"));
+} else {
+  toDoData = [];
+}
 
 const render = function () {
   localStorage.setItem("toDoData", JSON.stringify(toDoData));
